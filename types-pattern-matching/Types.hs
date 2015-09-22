@@ -1,6 +1,6 @@
 module Types where
 
--- Sum types
+-- Sum types (enumerations are a special case)
 data Color = Red | Green | Blue
 
 data List a = Nil | Cons a (List a) deriving (Show)
@@ -8,7 +8,7 @@ data List a = Nil | Cons a (List a) deriving (Show)
 -- Type Alias
 type FirstName = String
 
--- Product Type
+-- Product Type (record)
 data Meetup = MU {
     name :: String,
     location :: String
@@ -29,18 +29,3 @@ instance FooBar Float where
 addOne :: (Num a) => List a -> List a
 addOne (Cons x xs) = Cons (x + 1) (addOne xs)
 addOne Nil = Nil
-
--- Kinds
-data Pair a = Pair a a
--- :k Pair
--- Pair :: * -> *
-
--- :k Tree
--- Tree :: (* -> *) -> * -> *
-data Tree k a = Node (k (Tree k a)) | Leaf a
-
-type BinaryTree a = Tree Pair a
--- :k BinaryTree
--- BinaryTree :: * -> *
-
-type RoseTree a = Tree [] a
